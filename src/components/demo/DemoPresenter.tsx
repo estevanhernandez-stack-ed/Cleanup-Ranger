@@ -140,7 +140,7 @@ export function DemoPresenter() {
     
     // Super-robust emoji stripping: Keep only alphanumeric, common punctuation, and spaces
     // This is the only way to ensure 100% of emojis (like warning, hammer, etc) are ignored
-    let cleanText = text.replace(/[^\w\s\d.,!?'"()\-]/g, '').trim();
+    let cleanText = text.replace(/[^\w\s\d.,!?'"()-]/g, '').trim();
     
     // Explicitly handle "3.1" to ensure it's not mangled and is spoken clearly
     cleanText = cleanText.replace(/3.1/g, '3 point 1');
