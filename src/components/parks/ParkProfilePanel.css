@@ -1,0 +1,86 @@
+.park-profile-overlay {
+  position: absolute; /* Using absolute inside the map-page container to cover everything but nav */
+  inset: 0;
+  background-color: rgba(15, 17, 21, 0.6);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.park-profile-modal {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-light);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+.relative { position: relative; }
+.absolute { position: absolute; }
+.top-4 { top: 1rem; }
+.right-4 { right: 1rem; }
+.bottom-4 { bottom: 1rem; }
+.left-4 { left: 1rem; }
+.inset-0 { top: 0; right: 0; bottom: 0; left: 0; }
+.bg-bg-dark { background-color: var(--bg-dark); }
+.bg-bg-dark\/80 { background-color: rgba(15, 17, 21, 0.8); }
+.bg-bg-dark\/90 { background-color: rgba(15, 17, 21, 0.9); }
+.h-64 { height: 16rem; }
+.h-48 { height: 12rem; }
+.w-full { width: 100%; }
+.h-full { height: 100%; }
+.max-w-lg { max-width: 32rem; }
+.max-h-\[90vh\] { max-height: 90vh; }
+.object-cover { object-fit: cover; }
+.opacity-80 { opacity: 0.8; }
+.p-2 { padding: 0.5rem; }
+.p-3 { padding: 0.75rem; }
+.p-4 { padding: 1rem; }
+.p-6 { padding: 1.5rem; }
+.pb-4 { padding-bottom: 1rem; }
+.mt-1 { margin-top: 0.25rem; }
+.mb-1 { margin-bottom: 0.25rem; }
+.mb-2 { margin-bottom: 0.5rem; }
+.mb-6 { margin-bottom: 1.5rem; }
+.m-0 { margin: 0; }
+.mt-auto { margin-top: auto; }
+.gap-2 { gap: 0.5rem; }
+.gap-3 { gap: 0.75rem; }
+.rounded-full { border-radius: 9999px; }
+.rounded-lg { border-radius: 0.5rem; }
+.backdrop-blur-md { backdrop-filter: blur(12px); }
+.border-b { border-bottom-width: 1px; }
+.border-border-light { border-color: var(--border-light); }
+.border-dashed { border-style: dashed; }
+.overflow-hidden { overflow: hidden; }
+.overflow-y-auto { overflow-y: auto; }
+.text-xs { font-size: 0.75rem; }
+.text-sm { font-size: 0.875rem; }
+.text-lg { font-size: 1.125rem; }
+.text-xl { font-size: 1.25rem; }
+.text-4xl { font-size: 2.25rem; }
+.font-bold { font-weight: 700; }
+.font-semibold { font-weight: 600; }
+.tracking-wider { letter-spacing: 0.05em; }
+.uppercase { text-transform: uppercase; }
+.leading-relaxed { line-height: 1.625; }
+.text-right { text-align: right; }
+.bg-accent-orange\/10 { background-color: rgba(249, 115, 22, 0.1); }
+.border-accent-orange\/30 { border-color: rgba(249, 115, 22, 0.3); }
+.hover\:bg-accent-orange\/20:hover { background-color: rgba(249, 115, 22, 0.2); }
+.bg-accent-green\/10 { background-color: rgba(34, 197, 94, 0.1); }
+.hover\:bg-accent-green\/20:hover { background-color: rgba(34, 197, 94, 0.2); }
+
+/* Missing utility classes from Vanilla stack */
+.flex-col { flex-direction: column; }
+.justify-between { justify-content: space-between; }
+.text-text-muted { color: var(--text-muted); }
+.text-text-secondary { color: var(--text-secondary); }
+.text-text-primary { color: var(--text-primary); }
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.animate-spin {
+  animation: spin 1s linear infinite;
+}

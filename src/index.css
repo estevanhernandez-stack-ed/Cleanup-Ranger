@@ -1,0 +1,257 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;700&display=swap");
+
+:root {
+  /* Core Colors */
+  --bg-dark: #0f1115;
+  --bg-panel: #16191f;
+  --bg-card: #1c1f26;
+
+  /* Primary Action / Accents - "Ranger Green" & "Alert Orange" */
+  --accent-green: #22c55e;
+  --accent-green-hover: #16a34a;
+  --accent-orange: #f97316;
+  --accent-red: #ef4444;
+  --accent-blue: #3b82f6;
+  --accent-purple: #a855f7;
+
+  /* Text Colors */
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+
+  /* Borders and UI elements */
+  --border-light: rgba(255, 255, 255, 0.1);
+  --border-focus: rgba(34, 197, 94, 0.4);
+
+  /* Layout */
+  --header-height: 64px;
+  --sidebar-width: 280px;
+  --border-radius: 12px;
+  --border-radius-sm: 8px;
+  --border-radius-lg: 16px;
+
+  /* Shadows & Effects */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md:
+    0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg:
+    0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.15);
+  --glass-bg: rgba(22, 25, 31, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.08);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family:
+    "Inter",
+    system-ui,
+    -apple-system,
+    sans-serif;
+  background-color: var(--bg-dark);
+  color: var(--text-primary);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.main-content {
+  padding-top: 120px;
+  min-height: 100vh;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Outfit", system-ui, sans-serif;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+a {
+  color: var(--accent-green);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+a:hover {
+  color: var(--accent-green-hover);
+}
+
+button {
+  font-family: inherit;
+}
+
+/* Base Utilities */
+.glass-panel {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--border-radius);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1rem;
+  font-weight: 500;
+  border-radius: var(--border-radius-sm);
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.875rem;
+}
+
+.btn-primary {
+  background-color: var(--accent-green);
+  color: #fff;
+  box-shadow: 0 4px 14px 0 rgba(34, 197, 94, 0.39);
+}
+
+.btn-primary:hover {
+  background-color: var(--accent-green-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px 0 rgba(34, 197, 94, 0.5);
+}
+
+.btn-secondary {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--text-primary);
+}
+
+.btn-secondary:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.4s ease-out forwards;
+}
+
+/* Custom Utilities used in components */
+.flex { display: flex; }
+.flex-wrap { flex-wrap: wrap; }
+.items-center { align-items: center; }
+.justify-center { justify-content: center; }
+.gap-3 { gap: 0.75rem; }
+.mt-6 { margin-top: 1.5rem; }
+
+.text-accent-red { color: var(--accent-red); }
+.text-accent-green { color: var(--accent-green); }
+.text-accent-orange { color: var(--accent-orange); }
+.bg-accent-orange { background-color: var(--accent-orange); }
+
+.park-marker-icon {
+  font-size: 24px;
+  background-color: var(--bg-card);
+  padding: 4px;
+  border-radius: 50%;
+  border: 2px solid var(--accent-green);
+  box-shadow: var(--shadow-md);
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.park-marker-icon:hover {
+  transform: scale(1.2);
+  border-color: var(--accent-green-hover);
+}
+
+.section-title {
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-dark);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Glow effects for accent elements */
+.glow-green {
+  box-shadow: 0 0 15px rgba(34, 197, 94, 0.3), 0 0 30px rgba(34, 197, 94, 0.1);
+}
+
+/* Animated gradient shimmer for premium CTA buttons */
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+.btn-primary-shimmer {
+  background: linear-gradient(90deg, var(--accent-green) 0%, #4ade80 25%, var(--accent-green) 50%, #4ade80 75%, var(--accent-green) 100%);
+  background-size: 200% auto;
+  animation: shimmer 3s linear infinite;
+  color: #fff;
+  border: none;
+  box-shadow: 0 4px 14px 0 rgba(34, 197, 94, 0.39);
+}
+
+/* Slide-up animation for modals */
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+.animate-slide-up {
+  animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Scanline overlay for cyberpunk ops feel */
+@keyframes scanline {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100%); }
+}
+
+/* Accent purple utilities */
+.text-accent-purple { color: var(--accent-purple); }
+.bg-accent-purple\/10 { background-color: rgba(168, 85, 247, 0.1); }
+.bg-accent-purple\/20 { background-color: rgba(168, 85, 247, 0.2); }
+.border-accent-purple\/50 { border-color: rgba(168, 85, 247, 0.5); }
+
+/* Responsive typography */
+@media (max-width: 768px) {
+  body {
+    font-size: 14px;
+  }
+}
+

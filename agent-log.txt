@@ -1,0 +1,14 @@
+[dotenv@17.3.1] injecting env (9) from .env -- tip: ΓÜÖ∩╕Å  write to custom object with { processEnv: myObject }
+
+Running 1 test using 1 worker
+
+[dotenv@17.3.1] injecting env (0) from .env -- tip: ≡ƒñû agentic secret storage: https://dotenvx.com/as2
+Navigating to local app...
+
+--- Agent Step 1 ---
+Agent encountered an error executing step: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent: [404 Not Found] models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+
+Agent finished exploration!
+  Γ£ô  1 [chromium] ΓÇ║ e2e\ai-explorer.spec.ts:6:1 ΓÇ║ AI Explorer Agent: The Parks & Rec Persona (3.3s)
+
+  1 passed (15.0s)
