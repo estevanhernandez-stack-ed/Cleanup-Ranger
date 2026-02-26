@@ -138,39 +138,49 @@ export function DemoPresenter() {
   const speak = useCallback((text: string, onEnd: () => void) => {
     window.speechSynthesis.cancel();
     
-    // Super-robust emoji stripping: Keep only alphanumeric, common punctuation, and spaces
-    let cleanText = text.replace(/[^\w\s\d.,!?'"()-]/g, '').trim();
+    // 1. Clean the text (strip emojis)
+    let cleanText = text.replace(/[^\w\s\d.,!?'"()-:]/g, '').trim();
     
-    // Prosody & Pronunciation fixes:
-    // 1. Add a small beat after colons
-    cleanText = cleanText.replace(/:/g, ', ,');
-    // 2. Fix 'live' (rhymes with give) pronunciation by using 'real-time' or phonetic 'liv'
+    // 2. Pronunciation fixes
     cleanText = cleanText.replace(/\blive\b/gi, 'real-time');
-    // 3. Explicitly handle "3.1" to ensure it's not mangled
     cleanText = cleanText.replace(/3.1/g, '3 point 1');
-    // 4. Handle 626LabsLLC branding for clearer speech
     cleanText = cleanText.replace(/626LabsLLC/gi, 'six two six labs, L, L, C');
     
-    const utterance = new SpeechSynthesisUtterance(cleanText);
+    // 3. Split by colon for the "Professional Beat"
+    const segments = cleanText.split(':').map(s => s.trim());
     
-    // Improved voice selection: look for "Premium", "Natural", or high-quality Google ones
-    const voices = window.speechSynthesis.getVoices();
-    const preferredVoice = voices.find(v => 
-      v.lang.startsWith('en') && 
-      (v.name.includes('Premium') || v.name.includes('Natural') || v.name.includes('Google'))
-    ) || voices.find(v => v.lang.startsWith('en')) || voices[0];
-    
-    if (preferredVoice) utterance.voice = preferredVoice;
-    
-    utterance.rate = 0.95;
-    utterance.pitch = 1.0;
-    
-    utterance.onend = () => {
-      // Add a small 1s buffer after finishing speaking before advancing
-      setTimeout(onEnd, 1000);
+    const speakSegment = (index: number) => {
+      if (index >= segments.length) {
+        // Add a final 1s buffer after all segments are finished
+        setTimeout(onEnd, 1000);
+        return;
+      }
+
+      if (!segments[index]) {
+        speakSegment(index + 1);
+        return;
+      }
+
+      const utterance = new SpeechSynthesisUtterance(segments[index]);
+      const voices = window.speechSynthesis.getVoices();
+      const preferredVoice = voices.find(v => 
+        v.lang.startsWith('en') && 
+        (v.name.includes('Premium') || v.name.includes('Natural') || v.name.includes('Google'))
+      ) || voices.find(v => v.lang.startsWith('en')) || voices[0];
+      
+      if (preferredVoice) utterance.voice = preferredVoice;
+      utterance.rate = 0.95;
+      utterance.pitch = 1.0;
+
+      utterance.onend = () => {
+        // Take a 650ms beat between segments (e.g. after the colon)
+        setTimeout(() => speakSegment(index + 1), 650);
+      };
+
+      window.speechSynthesis.speak(utterance);
     };
 
-    window.speechSynthesis.speak(utterance);
+    speakSegment(0);
   }, []);
 
   useEffect(() => {
