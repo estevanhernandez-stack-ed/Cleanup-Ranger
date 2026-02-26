@@ -13,9 +13,10 @@
   text-align: center;
   padding: 4rem 2rem;
   background:
-    linear-gradient(rgba(10, 11, 14, 0.7), rgba(10, 11, 14, 0.9)),
+    linear-gradient(rgba(10, 11, 14, 0.85), rgba(10, 11, 14, 0.95)),
     url('/hero.png');
-  background-size: cover;
+  background-size: contain;
+  background-repeat: no-repeat;
   background-position: center;
   position: relative;
   overflow: hidden;
