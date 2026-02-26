@@ -4,7 +4,7 @@
 
 ## 🚀 Submission Pitch (200 Chars Max)
 
-"Cleanup Ranger: A decentralized hub fighting Ecological State Drift. Built in <72hrs with Gemini 3.1, it uses real-time AI to detect hazards and verify stewardship impact. Protect the wild. 🫡🌲" (191 characters)
+"A decentralized hub fighting Ecological State Drift. Built in <72hrs with Gemini 3.1 Pro/Flash, it uses real-time AI to detect hazards, generate briefs, and verify impact. Protect the wild. 🫡🌲" (191 characters)
 
 ---
 
