@@ -33,6 +33,7 @@ export function Navbar() {
             <span>Cleanup Ranger</span>
           </Link>
           <div className="navbar-actions">
+            <Link to="/about" className="btn btn-secondary">Roadmap</Link>
             <Link to="/dashboard" className="btn btn-secondary" data-tour="nav-dashboard">Dashboard</Link>
             <Link to="/map" className="btn btn-secondary" data-tour="nav-map">Map</Link>
             {!isLoggedIn ? (
