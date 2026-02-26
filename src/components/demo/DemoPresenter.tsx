@@ -111,7 +111,7 @@ const DEMO_SCENES: Scene[] = [
   },
   {
     isChapter: true,
-    caption: '🫡 Cleanup Ranger. Stand Ready. Protect the Wild.',
+    caption: '© 2026 Cleanup Ranger Operations by 626LabsLLC. Stand Ready. Protect the Wild.',
     duration: 8000
   }
 ];
@@ -148,6 +148,8 @@ export function DemoPresenter() {
     cleanText = cleanText.replace(/\blive\b/gi, 'real-time');
     // 3. Explicitly handle "3.1" to ensure it's not mangled
     cleanText = cleanText.replace(/3.1/g, '3 point 1');
+    // 4. Handle 626LabsLLC branding for clearer speech
+    cleanText = cleanText.replace(/626LabsLLC/gi, 'six two six labs, L, L, C');
     
     const utterance = new SpeechSynthesisUtterance(cleanText);
     
