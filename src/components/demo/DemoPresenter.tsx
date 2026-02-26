@@ -137,7 +137,11 @@ export function DemoPresenter() {
 
   const speak = useCallback((text: string, onEnd: () => void) => {
     window.speechSynthesis.cancel();
-    const utterance = new SpeechSynthesisUtterance(text);
+    
+    // Strip emojis from the text before speaking
+    const cleanText = text.replace(/([\u2700-\u27BF]|[\uE000-\uF8FF]|\uD83C[\uDC00-\uDFFF]|\uD83D[\uDC00-\uDFFF]|[\u2011-\u26FF]|\uD83E[\uDD10-\uDDFF])/g, '').trim();
+    
+    const utterance = new SpeechSynthesisUtterance(cleanText);
     
     // Improved voice selection: look for "Premium", "Natural", or high-quality Google ones
     const voices = window.speechSynthesis.getVoices();
