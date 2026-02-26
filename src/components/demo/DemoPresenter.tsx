@@ -84,23 +84,23 @@ const DEMO_SCENES: Scene[] = [
   // --- SEGMENT 3: HOW IT WAS CREATED ---
   {
     isChapter: true,
-    caption: '🏗️ Behind the Tech: The Ranger Infrastructure',
+    caption: '🏗️ Behind the Tech: Rapid Prototyping in Google Antigravity',
     duration: 5500
   },
   {
     isChapter: true,
-    caption: '⚡ Built on Vite + React for a blazing-fast, responsive OPS experience with premium glassmorphism.',
-    duration: 6500
-  },
-  {
-    isChapter: true,
-    caption: '🔥 Powered by Firebase: Real-time synchronization and decentralized data for a resilient network.',
-    duration: 6500
-  },
-  {
-    isChapter: true,
-    caption: '🧠 Intelligence by Google Gemini 3.1 Pro: Our cutting-edge engine for hazard classification and impact verification.',
+    caption: '⚡ This entire platform was architected and built in less than 72 hours using the Google Antigravity agentic environment.',
     duration: 7000
+  },
+  {
+    isChapter: true,
+    caption: '🧠 Intelligence by Gemini 3.1 Pro and 3 Flash: Our core engines for multimodal hazard classification and verification.',
+    duration: 7000
+  },
+  {
+    isChapter: true,
+    caption: '🔥 Powered by Firebase: Real-time synchronization and decentralized data for a resilient stewardship network.',
+    duration: 6500
   },
 
   // --- OUTRO ---
@@ -138,9 +138,12 @@ export function DemoPresenter() {
   const speak = useCallback((text: string, onEnd: () => void) => {
     window.speechSynthesis.cancel();
     
-    // Strip emojis from the text before speaking using modern unicode property escapes
-    // This catches the saluting face and other newer emojis
-    const cleanText = text.replace(/(\p{Emoji_Presentation}|\p{Emoji_Modifier_Base}|\p{Emoji_Component})/gu, '').trim();
+    // Super-robust emoji stripping: Keep only alphanumeric, common punctuation, and spaces
+    // This is the only way to ensure 100% of emojis (like warning, hammer, etc) are ignored
+    let cleanText = text.replace(/[^\w\s\d.,!?'"()\-]/g, '').trim();
+    
+    // Explicitly handle "3.1" to ensure it's not mangled and is spoken clearly
+    cleanText = cleanText.replace(/3.1/g, '3 point 1');
     
     const utterance = new SpeechSynthesisUtterance(cleanText);
     
