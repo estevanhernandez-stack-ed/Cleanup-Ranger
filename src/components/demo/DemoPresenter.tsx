@@ -139,10 +139,14 @@ export function DemoPresenter() {
     window.speechSynthesis.cancel();
     
     // Super-robust emoji stripping: Keep only alphanumeric, common punctuation, and spaces
-    // This is the only way to ensure 100% of emojis (like warning, hammer, etc) are ignored
     let cleanText = text.replace(/[^\w\s\d.,!?'"()-]/g, '').trim();
     
-    // Explicitly handle "3.1" to ensure it's not mangled and is spoken clearly
+    // Prosody & Pronunciation fixes:
+    // 1. Add a small beat after colons
+    cleanText = cleanText.replace(/:/g, ', ,');
+    // 2. Fix 'live' (rhymes with give) pronunciation by using 'real-time' or phonetic 'liv'
+    cleanText = cleanText.replace(/\blive\b/gi, 'real-time');
+    // 3. Explicitly handle "3.1" to ensure it's not mangled
     cleanText = cleanText.replace(/3.1/g, '3 point 1');
     
     const utterance = new SpeechSynthesisUtterance(cleanText);
