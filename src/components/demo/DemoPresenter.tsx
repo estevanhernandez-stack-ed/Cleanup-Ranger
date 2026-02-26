@@ -138,8 +138,9 @@ export function DemoPresenter() {
   const speak = useCallback((text: string, onEnd: () => void) => {
     window.speechSynthesis.cancel();
     
-    // Strip emojis from the text before speaking
-    const cleanText = text.replace(/([\u2700-\u27BF]|[\uE000-\uF8FF]|\uD83C[\uDC00-\uDFFF]|\uD83D[\uDC00-\uDFFF]|[\u2011-\u26FF]|\uD83E[\uDD10-\uDDFF])/g, '').trim();
+    // Strip emojis from the text before speaking using modern unicode property escapes
+    // This catches the saluting face and other newer emojis
+    const cleanText = text.replace(/(\p{Emoji_Presentation}|\p{Emoji_Modifier_Base}|\p{Emoji_Component})/gu, '').trim();
     
     const utterance = new SpeechSynthesisUtterance(cleanText);
     
