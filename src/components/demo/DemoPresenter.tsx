@@ -99,7 +99,7 @@ const DEMO_SCENES: Scene[] = [
   },
   {
     isChapter: true,
-    caption: '🧠 Intelligence by Google Gemini: Our core engine for hazard classification and impact verification.',
+    caption: '🧠 Intelligence by Google Gemini 2.0: Our core engine for hazard classification and impact verification.',
     duration: 7000
   },
 
@@ -135,16 +135,27 @@ export function DemoPresenter() {
     return () => window.removeEventListener('start-demo', handleStart);
   }, [startDemo]);
 
-  const speak = useCallback((text: string) => {
-    window.speechSynthesis.cancel(); // Abort previous speech
+  const speak = useCallback((text: string, onEnd: () => void) => {
+    window.speechSynthesis.cancel();
     const utterance = new SpeechSynthesisUtterance(text);
-    // Find a nice voice if available, otherwise use default
+    
+    // Improved voice selection: look for "Premium", "Natural", or high-quality Google ones
     const voices = window.speechSynthesis.getVoices();
-    const preferredVoice = voices.find(v => v.lang.startsWith('en') && v.name.includes('Google')) || voices[0];
+    const preferredVoice = voices.find(v => 
+      v.lang.startsWith('en') && 
+      (v.name.includes('Premium') || v.name.includes('Natural') || v.name.includes('Google'))
+    ) || voices.find(v => v.lang.startsWith('en')) || voices[0];
+    
     if (preferredVoice) utterance.voice = preferredVoice;
     
-    utterance.rate = 0.9; // Slightly slower for clarity
-    utterance.pitch = 0.95; // Slightly lower for a "Tech-Ranger" tone
+    utterance.rate = 0.95;
+    utterance.pitch = 1.0;
+    
+    utterance.onend = () => {
+      // Add a small 1s buffer after finishing speaking before advancing
+      setTimeout(onEnd, 1000);
+    };
+
     window.speechSynthesis.speak(utterance);
   }, []);
 
@@ -157,9 +168,6 @@ export function DemoPresenter() {
     const scene = DEMO_SCENES[currentStep];
     if (!scene) return;
 
-    // Speak caption
-    speak(scene.caption);
-
     // Handle Path Change
     if (scene.path && location.pathname !== scene.path) {
       navigate(scene.path);
@@ -170,16 +178,17 @@ export function DemoPresenter() {
       scene.action();
     }
 
-    const timer = setTimeout(() => {
+    // Advance only AFTER speech finishes
+    speak(scene.caption, () => {
       if (currentStep + 1 >= DEMO_SCENES.length) {
         setIsActive(false);
       } else {
         setCurrentStep(prev => prev + 1);
       }
-    }, scene.duration);
+    });
 
     return () => {
-      clearTimeout(timer);
+      window.speechSynthesis.cancel();
     };
   }, [isActive, currentStep, navigate, location.pathname, speak]);
 
