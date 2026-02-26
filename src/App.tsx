@@ -5,11 +5,13 @@ import { MapPage } from './pages/MapPage';
 import { ParkPage } from './pages/ParkPage';
 import { DashboardPage } from './pages/DashboardPage';
 import { AboutPage } from './pages/AboutPage';
+import { DemoPresenter } from './components/demo/DemoPresenter';
 
 function App() {
   return (
     <Router>
       <div className="app-container">
+        <DemoPresenter />
         <Navbar />
         <main className="main-content">
           <Routes>

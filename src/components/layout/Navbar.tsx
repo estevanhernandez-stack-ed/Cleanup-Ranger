@@ -33,6 +33,12 @@ export function Navbar() {
             <span>Cleanup Ranger</span>
           </Link>
           <div className="navbar-actions">
+            <button 
+              className="btn btn-primary bg-accent-orange hover:bg-accent-orange/80 border-none flex items-center gap-2"
+              onClick={() => window.dispatchEvent(new CustomEvent('start-demo'))}
+            >
+              🎬 Run Demo
+            </button>
             <Link to="/about" className="btn btn-secondary">Roadmap</Link>
             <Link to="/dashboard" className="btn btn-secondary" data-tour="nav-dashboard">Dashboard</Link>
             <Link to="/map" className="btn btn-secondary" data-tour="nav-map">Map</Link>

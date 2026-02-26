@@ -488,7 +488,7 @@ export function MapPage() {
               Report Hazard
             </button>
             <button 
-              className="btn flex-1 flex items-center justify-center gap-2 py-3 bg-accent-green/10 text-accent-green border border-accent-green/30 hover:bg-accent-green/20"
+              className="btn btn-verify-cleanup flex-1 flex items-center justify-center gap-2 py-3 bg-accent-green/10 text-accent-green border border-accent-green/30 hover:bg-accent-green/20"
               onClick={() => setIsCleanupScannerOpen(true)}
               data-tour="scan-cleanup-btn"
             >
