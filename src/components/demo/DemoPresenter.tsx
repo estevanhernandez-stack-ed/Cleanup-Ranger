@@ -7,32 +7,51 @@ interface Scene {
   caption: string;
   duration: number;
   action?: () => void;
+  isChapter?: boolean;
 }
 
 const DEMO_SCENES: Scene[] = [
+  // --- SEGMENT 1: THE ISSUE ---
+  {
+    isChapter: true,
+    caption: '🌍 Cleanup Ranger: The Problem of State Drift',
+    duration: 5000
+  },
+  {
+    isChapter: true,
+    caption: '⚠️ Our public spaces are declining. Hazards and litter often go unreported for weeks, degrading our local ecosystem.',
+    duration: 6000
+  },
+  {
+    isChapter: true,
+    caption: '📉 Traditional reporting is slow and disconnected. We need a decentralized, real-time response system.',
+    duration: 6000
+  },
+
+  // --- SEGMENT 2: FUNCTIONALITY ---
+  {
+    isChapter: true,
+    caption: '🛠️ The Solution: A Decentralized Stewardship Hub',
+    duration: 5000
+  },
   {
     path: '/',
-    caption: '🌍 Welcome to Cleanup Ranger: Protecting the Green Commons.',
+    caption: '🏠 It starts with a mission. Every user is a Ranger, sworn to protect the green commons.',
     duration: 4000
   },
   {
-    caption: '🛡️ A decentralized platform merging AI with community stewardship.',
+    caption: '🛡️ We merge autonomous agent intelligence with community action.',
     duration: 4000,
     action: () => window.scrollTo({ top: 800, behavior: 'smooth' })
   },
   {
-    caption: '🛰️ Real-time Command Radar: Powered by Google Maps & Places telemetry.',
-    duration: 4000,
-    action: () => window.scrollTo({ top: 1600, behavior: 'smooth' })
-  },
-  {
     path: '/map',
-    caption: '📡 Initializing Territory Scan... Discovering local park infrastructure.',
-    duration: 5000
+    caption: '📡 The Command Radar: Dynamically tracking park health using Google Maps & Places.',
+    duration: 6000
   },
   {
-    caption: '🔍 Detecting "State Drifts": Identifying hazards and sanitation gaps.',
-    duration: 4500,
+    caption: '🕵️ Detect & Report: Identify hazards instantly. Our AI scans photos to classify "State Drifts."',
+    duration: 6000,
     action: () => {
        const el = document.querySelector('[data-tour="scan-hazard-btn"]');
        el?.classList.add('demo-pulse');
@@ -40,41 +59,60 @@ const DEMO_SCENES: Scene[] = [
     }
   },
   {
-    caption: '🤖 Gemini AI classifications turn raw reports into mission-ready manifests.',
-    duration: 4500
+    caption: '🤖 Powered by Google Gemini: Turning raw data into mission-ready manifests and tool lists.',
+    duration: 6000
   },
   {
-    caption: '✅ High-Trust Verification: Rewarding Squads for verified site remediation.',
-    duration: 4500,
+    caption: '✅ High-Trust Verification: Rewarding Squads only after AI confirms a site remediation.',
+    duration: 6000,
     action: () => {
-        // Highlight verify button
-        const btn = document.querySelector('.btn-verify-cleanup'); // hypothetical class I'll add
+        const btn = document.querySelector('.btn-verify-cleanup');
         btn?.classList.add('demo-pulse');
         setTimeout(() => btn?.classList.remove('demo-pulse'), 3000);
     }
   },
   {
-    caption: '👥 Form specializes Squads and track local legacy points.',
-    duration: 4500,
+    caption: '🏆 Gamified Community Ops: Rallies, squads, and legacy points for impact-driven stewardship.',
+    duration: 6000,
     action: () => {
         const btn = document.querySelector('[data-tour="nav-dashboard"]');
         btn?.classList.add('demo-pulse');
         setTimeout(() => btn?.classList.remove('demo-pulse'), 3000);
     }
   },
+
+  // --- SEGMENT 3: HOW IT WAS CREATED ---
+  {
+    isChapter: true,
+    caption: '🏗️ How it was Created: The Tech Stack',
+    duration: 5000
+  },
+  {
+    isChapter: true,
+    caption: '⚡ Built with Vite + React for high-performance, responsive UI and premium glassmorphism aesthetics.',
+    duration: 6000
+  },
+  {
+    isChapter: true,
+    caption: '🔥 Powered by Firebase for real-time data persistence and decentralized user profiles.',
+    duration: 6000
+  },
+  {
+    isChapter: true,
+    caption: '🧠 Integrated with Google Gemini 1.5 for complex image classification and stewardship verification.',
+    duration: 6000
+  },
+
+  // --- OUTRO ---
   {
     path: '/about',
-    caption: '🚀 Building the future of green infrastructure.',
-    duration: 4000
+    caption: '🚀 Our 2026-2027 Roadmap: IoT Sensors, Drone Recon, and Business Bounties.',
+    duration: 6000
   },
   {
-    caption: '📅 2026-2027 Roadmap: IoT Sensors, Drone Recon, and Business Bounties.',
-    duration: 5000,
-    action: () => window.scrollTo({ top: 1200, behavior: 'smooth' })
-  },
-  {
+    isChapter: true,
     caption: '🫡 Join the Rangers. Stand Ready. Protect the Wild.',
-    duration: 5000
+    duration: 7000
   }
 ];
 
@@ -130,7 +168,7 @@ export function DemoPresenter() {
   if (!scene) return null;
 
   return (
-    <div className="demo-overlay">
+    <div className={`demo-overlay ${scene.isChapter ? 'demo-chapter-view' : ''}`}>
       <div className="demo-caption-container">
         <div className="demo-progress-bar" style={{ width: `${(currentStep / DEMO_SCENES.length) * 100}%` }}></div>
         <p className="demo-caption">{scene.caption}</p>
