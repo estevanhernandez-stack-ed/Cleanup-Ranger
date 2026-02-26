@@ -46,7 +46,7 @@ const DEMO_SCENES: Scene[] = [
   },
   {
     path: '/map',
-    caption: '📡 The Command Radar: Live telemetry tracking the structural health of every park in your sector.',
+    caption: '📡 The Command Radar: Real-time telemetry tracking the structural health of every park in your sector.',
     duration: 7000
   },
   {
@@ -138,13 +138,14 @@ export function DemoPresenter() {
   const speak = useCallback((text: string, onEnd: () => void) => {
     window.speechSynthesis.cancel();
     
-    // 1. Clean the text (strip emojis)
-    let cleanText = text.replace(/[^\w\s\d.,!?'"()-:]/g, '').trim();
+    // 1. Clean the text (strip emojis) but keep &
+    let cleanText = text.replace(/[^\w\s\d.,!?'"()-:&]/g, '').trim();
     
     // 2. Pronunciation fixes
     cleanText = cleanText.replace(/\blive\b/gi, 'real-time');
     cleanText = cleanText.replace(/3.1/g, '3 point 1');
     cleanText = cleanText.replace(/626LabsLLC/gi, 'six two six labs, L, L, C');
+    cleanText = cleanText.replace(/&/g, ' and ');
     
     // 3. Split by colon for the "Professional Beat"
     const segments = cleanText.split(':').map(s => s.trim());
