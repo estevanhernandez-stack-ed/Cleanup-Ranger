@@ -99,7 +99,7 @@ const DEMO_SCENES: Scene[] = [
   },
   {
     isChapter: true,
-    caption: '🧠 Intelligence by Google Gemini 2.0: Our core engine for hazard classification and impact verification.',
+    caption: '🧠 Intelligence by Google Gemini 3.1 Pro: Our cutting-edge engine for hazard classification and impact verification.',
     duration: 7000
   },
 

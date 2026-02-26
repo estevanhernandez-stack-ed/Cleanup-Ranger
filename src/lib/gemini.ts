@@ -37,8 +37,8 @@ export async function analyzeParkHazard(imageFile: File): Promise<HazardAnalysis
   }
 
   try {
-    // We use gemini-1.5-flash as it is the standard multimodal fast model
-    const model = genAI.getGenerativeModel({ model: "gemini-3-flash-preview" });
+    // We use gemini-3.1-flash as it is the standard multimodal fast model
+    const model = genAI.getGenerativeModel({ model: "gemini-3.1-flash" });
 
     // Convert the File to the Generative Part format
     const base64Data = await fileToGenerativePart(imageFile);
@@ -84,7 +84,7 @@ export async function verifyParkCleanup(imageFile: File): Promise<CleanupAnalysi
   }
 
   try {
-    const model = genAI.getGenerativeModel({ model: "gemini-3-flash-preview" });
+    const model = genAI.getGenerativeModel({ model: "gemini-3.1-flash" });
     const base64Data = await fileToGenerativePart(imageFile);
 
     const prompt = `
@@ -127,7 +127,7 @@ export async function analyzeFraud(imageFile: File): Promise<FraudAnalysis> {
   }
 
   try {
-    const model = genAI.getGenerativeModel({ model: "gemini-3-flash-preview" });
+    const model = genAI.getGenerativeModel({ model: "gemini-3.1-flash" });
     const base64Data = await fileToGenerativePart(imageFile);
 
     const prompt = `
@@ -176,7 +176,7 @@ export async function generateMissionBriefing(
   }
 
   try {
-    const model = genAI.getGenerativeModel({ model: "gemini-3-flash-preview" });
+    const model = genAI.getGenerativeModel({ model: "gemini-3.1-pro" });
 
     const prompt = `
       You are an enthusiastic community organizer writing a "mission briefing" for a local park cleanup event.
