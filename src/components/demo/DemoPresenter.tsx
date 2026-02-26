@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import './DemoPresenter.css';
 
@@ -135,30 +135,36 @@ export function DemoPresenter() {
     return () => window.removeEventListener('start-demo', handleStart);
   }, [startDemo]);
 
+  // Track the current active speech session to prevent overlapping/repetition
+  const speechSessionRef = useRef<number>(0);
+
   const speak = useCallback((text: string, onEnd: () => void) => {
     window.speechSynthesis.cancel();
+    const sessionId = Math.random();
+    speechSessionRef.current = sessionId;
     
-    // 1. Clean the text (strip emojis) but keep &
-    let cleanText = text.replace(/[^\w\s\d.,!?'"()-:&]/g, '').trim();
+    // 1. Clean the text (strip emojis) but keep punctuation
+    let cleanText = text.replace(/[^\w\s\d.,!?'"()-:&;]/g, '').trim();
     
     // 2. Pronunciation fixes
     cleanText = cleanText.replace(/\blive\b/gi, 'real-time');
     cleanText = cleanText.replace(/3.1/g, '3 point 1');
-    cleanText = cleanText.replace(/626LabsLLC/gi, 'six two six labs, L, L, C');
-    cleanText = cleanText.replace(/&/g, ' and ');
+    // Important: End with a period to force a breath after the brand name
+    cleanText = cleanText.replace(/626LabsLLC/gi, 'six two six labs, L, L, C.');
     
-    // 3. Split by colon for the "Professional Beat"
-    const segments = cleanText.split(':').map(s => s.trim());
+    // 3. Multi-level Splitting for "Breaks"
+    // Split by colons, semicolons, and periods to create natural segments
+    const segments = cleanText.split(/[:;.]/).map(s => s.trim()).filter(Boolean);
     
     const speakSegment = (index: number) => {
-      if (index >= segments.length) {
-        // Add a final 1s buffer after all segments are finished
-        setTimeout(onEnd, 1000);
-        return;
-      }
+      // If a new speech session started, stop this sequence immediately
+      if (speechSessionRef.current !== sessionId) return;
 
-      if (!segments[index]) {
-        speakSegment(index + 1);
+      if (index >= segments.length) {
+        // Final 1.5s buffer after the entire scene's narration
+        setTimeout(() => {
+          if (speechSessionRef.current === sessionId) onEnd();
+        }, 1500);
         return;
       }
 
@@ -174,8 +180,9 @@ export function DemoPresenter() {
       utterance.pitch = 1.0;
 
       utterance.onend = () => {
-        // Take a 650ms beat between segments (e.g. after the colon)
-        setTimeout(() => speakSegment(index + 1), 650);
+        if (speechSessionRef.current !== sessionId) return;
+        // Take an 800ms "Professional Beat" between every sentence/segment
+        setTimeout(() => speakSegment(index + 1), 800);
       };
 
       window.speechSynthesis.speak(utterance);
@@ -187,6 +194,7 @@ export function DemoPresenter() {
   useEffect(() => {
     if (!isActive) {
       window.speechSynthesis.cancel();
+      speechSessionRef.current = 0;
       return;
     }
 
@@ -214,6 +222,7 @@ export function DemoPresenter() {
 
     return () => {
       window.speechSynthesis.cancel();
+      speechSessionRef.current = 0;
     };
   }, [isActive, currentStep, navigate, location.pathname, speak]);
 
